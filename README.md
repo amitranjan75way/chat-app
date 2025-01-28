@@ -1,199 +1,147 @@
-# Food Delivery App
+# Group Chat Application
 
-This is a full-stack food delivery application built using the **MERN Stack** (MongoDB, Express.js, React.js, and Node.js) on the backend, with plans to migrate to PostgreSQL using TypeORM. The app allows users to browse restaurants, view menus, and manage orders. The frontend is built with React.js and integrates with the backend via a RESTful API.
+## Overview
 
----
+This project is a **Group Chat Application** that allows users to create and manage groups, send real-time messages, and interact with each other in a collaborative environment. The application has a **frontend** built with React.js, TypeScript, and Redux, while the **backend** is built using Express.js, TypeScript, and MongoDB with Mongoose for database management. Real-time communication between users is achieved using **Socket.io**.
 
-## Table of Contents
-
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Backend Setup](#backend-setup)
-- [Frontend Setup](#frontend-setup)
-- [Folder Structure](#folder-structure)
-- [Routes and Authentication](#routes-and-authentication)
-- [API Documentation](#api-documentation)
-- [License](#license)
+Users can log in, sign up, create new groups, and participate in group chats with real-time messaging. Additionally, group admins can invite users, approve/reject join requests, and manage group settings. The system is designed to handle secure authentication with **JWT tokens** and manage user roles, such as **Admin** and **Member**.
 
 ---
 
-## Features
+## Project Features
 
-### Backend
-- User authentication and role-based authorization (Customer, Restaurant Owner, Delivery Staff).
-- Schema models for Users, Restaurants, Menu Items, Orders, and Carts.
-- Integration of password hashing using **bcrypt**.
-- Token-based authentication with **JWT**.
-- API endpoints for:
-  - User registration and login.
-  - Adding menu items (restricted to restaurant owners).
-  - Fetching restaurant lists and details.
-  - Managing carts and orders.
+### **Frontend (React)**
 
-### Frontend
-- Public and private routing based on user authentication.
-- Components for viewing restaurants, adding menu items, and user management.
-- Form validation using **react-hook-form**.
-- Loading states, error handling, and skeleton loaders.
-- Responsive design using CSS modules.
+- **Authentication System**: 
+  - Users can **sign up** and **log in** with their email and password.
+  - Login session is managed using **JWT tokens** stored in `localStorage`.
 
----
+- **Group Management**:
+  - Users can **create** new groups with a name, description, and profile picture.
+  - Each user can view and join groups they are invited to, using an **invite link**.
+  - Group admins can approve or reject **join requests**.
 
-## Technologies Used
+- **Real-Time Messaging**:
+  - Users can send and receive messages in real time via **Socket.io**.
+  - Messages appear in the chat immediately after being sent by another user.
+  - Each group has its own dedicated chat, displaying messages from all members.
 
-### Backend:
-- **Node.js**
-- **Express.js**
-- **MongoDB with Mongoose ORM** (current)
-- **PostgreSQL with TypeORM** (migration in progress)
-- **JWT** for authentication
-- **bcrypt** for password hashing
+- **User Interface**:
+  - **Material UI** is used to create the user interface with a modern, responsive design.
+  - **Redux** is used for global state management, handling authentication, group data, and messages.
+  - **React Hook Form** and **Yup** are used for form handling and validation.
 
-### Frontend:
-- **React.js** with TypeScript
-- **React Router** for routing
-- **Redux Toolkit Query (RTK Query)** for state management and API calls
-- **CSS Modules** for styling
+- **Real-Time Notifications**:
+  - **react-toastify** is used to provide **toast notifications** for new messages, successful actions (like creating a group), and errors.
+
+- **Mobile Responsive**: 
+  - The frontend is responsive and designed for both desktop and mobile devices.
 
 ---
 
-## Backend Setup
+### **Backend (Express)**
 
-### Prerequisites
-1. Install [Node.js](https://nodejs.org/).
-2. Install [MongoDB](https://www.mongodb.com/) or set up a cloud MongoDB instance (e.g., MongoDB Atlas).
+- **Authentication**:
+  - **JWT-based authentication** allows users to securely sign up and log in.
+  - Passwords are hashed using **bcrypt** before being stored in the database.
 
-### Steps
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo-url.git
-   cd backend
-   ```
+- **Group and User Management**:
+  - **Users** have roles (Admin, Member) and are able to create groups and send messages.
+  - **Group admins** manage group memberships, approve/reject join requests, and invite new users.
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+- **Real-Time Communication**:
+  - **Socket.io** is used to manage real-time messaging between users in a group chat.
+  - The backend handles broadcasting messages to all users in a group as soon as they are sent.
 
-3. Create a `.env` file in the root directory and configure the following:
-   ```env
-   PORT=5000
-   MONGO_URI=mongodb://localhost:27017/foodDeliveryDB
-   JWT_SECRET=your_jwt_secret
-   ```
+- **Database**:
+  - The backend uses **MongoDB** with **Mongoose** to manage the database.
+  - Data is structured in **User**, **Group**, and **Message** schemas:
+    - **User Schema**: Stores user information like name, email, password (hashed), profile picture, and groups.
+    - **Group Schema**: Stores group details including group name, description, admin, members, and join requests.
+    - **Message Schema**: Stores chat messages, including the group, sender, and content of the message.
 
-4. Start the backend server:
-   ```bash
-   npm run local
-   ```
-   The server will start at `http://localhost:4000`.
+- **Email Invitations**:
+  - The backend uses **Nodemailer** to send email invitations for users to join a group.
+  - Users receive email notifications when they are invited or their join request is approved/rejected.
 
----
 
-## Frontend Setup
+## Installation
 
-### Prerequisites
-1. Install [Node.js](https://nodejs.org/).
+### **Frontend Setup**
 
-### Steps
-1. Navigate to the frontend directory:
+1. Navigate to the `frontend` directory:
+   
    ```bash
    cd frontend
    ```
 
-2. Install dependencies:
+2. Install dependencies using npm or pnpm:
+
    ```bash
-   npm install --legacy-peer-deps
+   npm install
+   ```
+
+   or
+
+   ```bash
+   pnpm install
    ```
 
 3. Start the development server:
+
    ```bash
    npm run dev
    ```
-   The application will run at `http://localhost:3000`.
+
+### **Backend Setup**
+
+1. Navigate to the `backend` directory:
+
+   ```bash
+   cd backend
+   ```
+
+2. Install dependencies using npm or pnpm:
+
+   ```bash
+   npm install
+   ```
+
+   or
+
+   ```bash
+   pnpm install
+   ```
+
+3. Start the backend server:
+
+   ```bash
+   npm run dev
+   ```
 
 ---
 
+## Libraries and Tools
 
+### **Frontend**:
+- **React**: JavaScript library for building user interfaces.
+- **Redux**: State management for React apps.
+- **Socket.io-client**: Real-time messaging between clients and server.
+- **Material UI**: UI component library for React.
+- **Yup** & **React Hook Form**: Form validation and handling.
+- **react-toastify**: Toast notifications for user feedback.
 
----
-
-## Routes and Authentication
-
-### Public Routes:
-- **Home Page** (`/`)
-- **Restaurant Details** (`/restaurant/:id`)
-- **Customer Details** (`/customer`)
-
-### Private Routes:
-- **Add Menu Item** (`/restaurant/addItem`) - Restricted to restaurant owners.
-- **Login and Register** - Hidden for logged-in users.
-
-### Protected Routes Implementation:
-- Used React Router with role-based access control.
-- Example:
-
-```tsx
-<Route path="/restaurant/addItem" element={
-  <PrivateRoute roles={['RESTAURANT_OWNER']}>
-    <AddMenuItem />
-  </PrivateRoute>
-} />
-```
-
----
-
-## API Documentation
-
-### Example Endpoints:
-
-#### User Registration:
-**POST** `/api/auth/register`
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "password123",
-  "role": "CUSTOMER"
-}
-```
-
-#### Fetch Restaurants:
-**GET** `/api/restaurants`
-
-Response:
-```json
-[
-  {
-    "_id": "abc123",
-    "userId": { "name": "Restaurant A", "email": "owner@example.com" },
-    "menu": [
-      { "name": "Pizza", "price": 12.99, "isAvailable": true }
-    ]
-  }
-]
-```
-
-#### Add Menu Item:
-**POST** `/api/menu/add`
-Headers:
-```json
-{
-  "Authorization": "Bearer your_jwt_token"
-}
-```
-Body:
-```json
-{
-  "name": "Burger",
-  "price": 9.99,
-  "isAvailable": true,
-  "description": "Delicious burger"
-}
-```
+### **Backend**:
+- **Express**: Web framework for Node.js.
+- **Mongoose**: ODM for MongoDB.
+- **Socket.io**: Real-time messaging.
+- **jsonwebtoken (JWT)**: Token-based authentication.
+- **bcrypt**: Password hashing.
+- **Nodemailer**: Email sending for invitations and notifications.
+- **dotenv**: Environment variable management.
 
 ---
 
 ## License
-This project is licensed under the MIT License.
 
+This project is open-source and available under the MIT License.
