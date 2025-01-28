@@ -7,6 +7,8 @@ import UpdatePassword from "./pages/updatePassword";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import { useAppSelector } from "./store/store";
 import CreateGroupPage from "./pages/createGroup";
+import SendInvitationPage from "./pages/invitation";
+import AcceptInvitationPage from "./pages/acceptInvitation";
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/update-password" element={<UpdatePassword />} />
         <Route path="/create-group" element={<CreateGroupPage/>} />
+        <Route path="/send-invite" element={<SendInvitationPage/>} />
+        <Route path="/join-group/:id" element={<AcceptInvitationPage/>} />
       </Route>
     </Routes>
   );

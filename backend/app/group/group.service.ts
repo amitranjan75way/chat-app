@@ -19,7 +19,6 @@ loadConfig();
  * 
  * @returns {Object} The newly created group.
  */
-
 export const createGroup = async (data: { name: string; description?: string },adminId: string) => {
   
   const inviteLink = uuidv4();

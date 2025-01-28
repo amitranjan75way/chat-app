@@ -7,9 +7,11 @@ import MessageSkeleton from './MessageSkeleton';
 import { Message, ChatResponse } from '../../types'; 
 import SendMessage from './sendMessage';
 import { useAppSelector } from '../../store/store';
+import { useNavigate } from 'react-router-dom';
 
 const ChatBox: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { selectedGroupId, messages } = useSelector((state: any) => state.messageReducer);
 
   // Fetch messages only if `selectedGroupId` exists
@@ -25,14 +27,17 @@ const ChatBox: React.FC = () => {
       dispatch(setMessages(allMessages));
     }
   }, [messages, dispatch, allMessages]);
+  function sendInvitehandle(id: string) {
+    navigate('/send-invite', { state: { groupId: id } });
+  }
 
   return (
     <div className={style.chatContainer}>
       {selectedGroupId ? (
         <>
           <div className={style.chatHeader}>
-            {/* Add logic to display group details */}
             <h3>Group Name</h3>
+            <button className='sendInvite' onClick={()=>sendInvitehandle(selectedGroupId)}>send invite</button>
           </div>
           <div className={style.chatBody}>
             {isLoading ? (
