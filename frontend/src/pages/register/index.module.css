@@ -1,0 +1,148 @@
+:root {
+  --primary-orange: #fc8019;
+  --secondary-orange: #ff914d;
+  --gray: #f5f5f5;
+  --dark-gray: #333;
+  --white: #fff;
+  --input-border: #ddd;
+}
+
+.signupContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--gray);
+  padding: 20px;
+}
+
+.formWrapper {
+  max-width: 450px;
+  width: 100%;
+  padding: 30px;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: var(--dark-gray);
+}
+
+.brandName {
+  color: var(--primary-orange);
+}
+
+.subHeader {
+  font-size: 16px;
+  text-align: center;
+  color: var(--dark-gray);
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.inputGroup, .role {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.inputGroup input, .role input, .dropdown {
+  padding: 10px 20px;
+}
+
+.inputGroup label {
+  font-weight: bold;
+  color: var(--dark-gray);
+  margin-bottom: 5px;
+}
+
+.inputGroup input,
+.passwordWrapper input,
+.dropdown,
+.registerButton {
+  /* width: 100%;
+  padding: 10px; */
+  font-size: 14px;
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.inputGroup input:focus,
+.passwordWrapper input:focus,
+.dropdown:focus {
+  border-color: var(--primary-orange);
+  outline: none;
+}
+
+.passwordWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.passwordWrapper input {
+  flex: 1;
+}
+
+.eyeButton {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: var(--dark-gray);
+}
+
+.dropdown {
+  background-color: var(--white);
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dropdown:hover {
+  border-color: var(--primary-orange);
+}
+
+.error {
+  font-size: 0.875rem;
+  color: red;
+  margin-top: 0.25rem;
+}
+
+.registerButton {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--white);
+  background-color: var(--primary-orange);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.registerButton:hover {
+  background-color: var(--secondary-orange);
+  transform: scale(1.02);
+}
+
+.loginButton {
+  color: var(--primary-orange);
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.loginButton:hover {
+  text-decoration: underline;
+}

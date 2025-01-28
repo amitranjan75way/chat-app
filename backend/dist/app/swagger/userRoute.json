@@ -1,0 +1,187 @@
+{
+    "/users/register": {
+        "post": {
+            "summary": "Register a new user, Customer or Restaurant or Delivery Staff",
+            "tags": ["Users"],
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/RegisterUser"
+                        },
+                        "example": {
+                            "name": "Jane Doe",
+                            "email": "janedoe@example.com",
+                            "password": "mypassword",
+                            "role": "USER"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "User registered successfully",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": true,
+                                "data": {
+                                    "id": "63f21c84e7a51093c507d202",
+                                    "name": "Jane Doe",
+                                    "email": "janedoe@example.com",
+                                    "role": "USER"
+                                },
+                                "message": "User registered successfully"
+                            }
+                        }
+                    }
+                },
+                "409": {
+                    "description": "User already exists",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": false,
+                                "error_code": 409,
+                                "message": "User already exists",
+                                "data": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/users/login": {
+        "post": {
+            "summary": "Login for Customer, Restaurant or Delivery Staff",
+            "tags": ["Users"],
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/LoginUser"
+                        },
+                        "example": {
+                            "email": "janedoe@example.com",
+                            "password": "mypassword"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "User logged in successfully",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": true,
+                                "data": {
+                                    "user": {
+                                        "id": "63f21c84e7a51093c507d202",
+                                        "name": "Jane Doe",
+                                        "email": "janedoe@example.com",
+                                        "role": "USER"
+                                    },
+                                    "accessToken": "jwt-token"
+                                },
+                                "message": "User logged in successfully"
+                            }
+                        }
+                    }
+                },
+                "401": {
+                    "description": "Invalid credentials",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": false,
+                                "error_code": 401,
+                                "message": "Invalid credentials",
+                                "data": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/users/logout": {
+        "post": {
+            "summary": "Logout a user",
+            "tags": ["Users"],
+            "responses": {
+                "200": {
+                    "description": "User logged out successfully",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": true,
+                                "data": {},
+                                "message": "User logged out successfully"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/users/update-access-token": {
+        "post": {
+            "summary": "Update the access token using the refresh token",
+            "tags": ["Users"],
+            "requestBody": {
+                "required": false,
+                "content": {
+                    "application/json": {
+                        "example": {}
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Access token updated successfully",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": true,
+                                "data": {
+                                    "accessToken": "new-access-token-here"
+                                },
+                                "message": "Access token updated successfully"
+                            }
+                        }
+                    }
+                },
+                "401": {
+                    "description": "Refresh token not found or invalid",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": false,
+                                "error_code": 401,
+                                "message": "Invalid refresh token, Please login again",
+                                "data": {}
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "User not found",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "success": false,
+                                "error_code": 404,
+                                "message": "User not found",
+                                "data": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

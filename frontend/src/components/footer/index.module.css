@@ -1,0 +1,81 @@
+:root {
+  --primary-orange: #fc8019;
+  --secondary-orange: #ff914d;
+  --gray: #f5f5f5;
+  --dark-gray: #333;
+  --white: #fff;
+  --black: #000;
+}
+
+.footer {
+  background-color: var(--dark-gray);
+  color: var(--white);
+  padding: 20px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center; /* Centering content */
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center; /* Align logo and app name vertically */
+  justify-content: center; /* Center horizontally */
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.appName {
+  font-size: 20px; /* Slightly smaller than the logo */
+  margin-left: 10px; /* Space between logo and app name */
+}
+
+.nav {
+  margin: 20px 0;
+}
+
+.nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.nav ul li {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.nav a {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.nav a:hover {
+  color: var(--primary-orange);
+}
+
+.socials {
+  margin-top: 10px;
+}
+
+.icon {
+  margin-right: 10px;
+  color: var(--white);
+}
+
+.icon:hover {
+  color: var(--primary-orange);
+}
+
+.copy {
+  margin-top: 20px;
+}
+
+.footerlogo {
+  height: 25px;
+}
