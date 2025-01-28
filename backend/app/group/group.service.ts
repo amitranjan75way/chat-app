@@ -1,12 +1,12 @@
 import groupSchema from "./group.schema";
-import { nanoid } from "nanoid";
+// import nanoid from "nanoid";
+import { v4 as uuidv4 } from "uuid";
 import userSchema from "../user/user.schema";
 import createHttpError from "http-errors";
 import { Types } from "mongoose";
 import { loadConfig } from "../common/helper/config.hepler";
 import messageSchema from "./message.schema";
 loadConfig();
-
 
 /**
  * Creates a new group and assigns an admin and members to it. 
@@ -22,7 +22,7 @@ loadConfig();
 
 export const createGroup = async (data: { name: string; description?: string },adminId: string) => {
   
-  const inviteLink = `${nanoid(10)}`;
+  const inviteLink = uuidv4();
   const profilePic = `https://ui-avatars.com/api/${data.name}?background=random`;
   
 
