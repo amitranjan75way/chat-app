@@ -30,11 +30,9 @@ const UserSchema = new mongoose.Schema<IUser>(
       type: String,
       required: true,
     },
-    role: {
+    profilePic: {
       type: String,
-      required: true,
-      enum: ["USER", "ADMIN"],
-      default: "USER",
+      default: ""
     },
     refreshToken: {
       type: String,

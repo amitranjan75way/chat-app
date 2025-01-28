@@ -14,7 +14,7 @@ const Header = () => {
 
   const handleLogout = async() => {
     try {
-      const response = await logoutUser();
+      const response = await logoutUser({});
       console.log("User logout", response)
       window.localStorage.removeItem('name');
       window.localStorage.removeItem('email');

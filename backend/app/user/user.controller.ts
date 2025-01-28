@@ -23,12 +23,13 @@ const REFRESH_TOKEN_SECRET: string = process.env.REFRESH_TOKEN_SECRET as string;
  * @throws {HttpError} If the user already exists or refresh token update fails.
  */
 export const registerUser = asyncHandler(async (req: Request, res: Response) => {
-    const data: IUser = req.body;
+    let data: IUser = req.body;
 
     const isUserExist: boolean = await userService.isUserExistByEamil(data.email);
     if (isUserExist) {
       throw createHttpError(409, "User already Exits");
     }
+    data.profilePic=`https://ui-avatars.com/api/${data.name}?background=random`;
 
     const result: IUser = await userService.createUser(data);
 
@@ -36,7 +37,6 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
       _id: result._id,
       name: result.name,
       email: result.email,
-      role: result.role,
     };
     const { refreshToken, accessToken } = jwthelper.generateTokens(payload);
     
@@ -59,7 +59,6 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role,
       refreshToken,
       accessToken
     } 
@@ -87,7 +86,6 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role,
     };
     const { refreshToken, accessToken } = jwthelper.generateTokens(payload);
     const updatedUser = await userService.updateRefreshToken(
@@ -113,7 +111,6 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role,
       refreshToken,
       accessToken
     }
@@ -169,7 +166,6 @@ export const updateAccessToken = asyncHandler(async (req: Request, res: Response
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role,
     };
     const { accessToken } = jwthelper.generateTokens(newPayload);
     res.cookie("accessToken", accessToken, {
@@ -182,7 +178,6 @@ export const updateAccessToken = asyncHandler(async (req: Request, res: Response
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role,
       refreshToken,
       accessToken
     }

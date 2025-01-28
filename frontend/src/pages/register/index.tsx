@@ -16,7 +16,6 @@ type FormData = {
   name: string;
   email: string;
   password: string;
-  role: 'USER' | 'ADMIN';
 };
 
 // Validation schema using yup
@@ -26,11 +25,7 @@ const schema = yup.object({
   password: yup
     .string()
     .required('Password is required')
-    .min(1, 'Password must be at least 8 characters'),
-  role: yup
-    .string()
-    .oneOf(['USER', 'ADMIN'], 'Invalid role')
-    .required('Role is required'),
+    .min(1, 'Password must be at least 8 characters')
 });
 
 const SignupForm: React.FC = () => {
@@ -38,11 +33,10 @@ const SignupForm: React.FC = () => {
   const [registerUser, { isLoading, isError, error }] = useRegisterUserMutation();
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
-    resolver: yupResolver(schema),
-    defaultValues: { role: 'USER' },
+    resolver: yupResolver(schema)
   });
 
-  const [showPassword, setShowPassword] = useState(false); // For toggling password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
@@ -58,7 +52,6 @@ const SignupForm: React.FC = () => {
 
       window.localStorage.setItem('name', response.data.name);
       window.localStorage.setItem('email', response.data.email);
-      window.localStorage.setItem('role', response.data.role);
       window.localStorage.setItem('accessToken', response.data.accessToken);
       window.localStorage.setItem('refreshToken', response.data.refreshToken);
       window.localStorage.setItem('isAuthenticated', 'true');
@@ -95,15 +88,6 @@ const SignupForm: React.FC = () => {
             <label>Enter Email</label>
             <input type="email" {...register('email')} placeholder="Your Email" />
             {errors.email && <p className={style.error}>{errors.email.message}</p>}
-          </div>
-
-          <div className={style.role}>
-            <label className={style.title} htmlFor="role">Select Role</label>
-            <select id="role" {...register('role')} className={style.dropdown}>
-              <option value="USER">User</option>
-              <option value="ADMIN">Admin</option>
-            </select>
-            {errors.role && <p className={style.error}>{errors.role.message}</p>}
           </div>
 
           <div className={style.inputGroup}>

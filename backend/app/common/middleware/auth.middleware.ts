@@ -3,7 +3,6 @@ import { type NextFunction, type Request, type Response } from "express";
 import asyncHandler from "express-async-handler";
 import createHttpError from "http-errors";
 import { Payload, type IUser } from "../../user/user.dto";
-import UserSchema from "../../user/user.schema";
 import { decodeAccessToken } from "../helper/jwt.helper";
 
 loadConfig();
@@ -29,30 +28,7 @@ export const auth = asyncHandler(async (req: Request, res: Response, next: NextF
         message: "Invalid or expired token",
       });
     }
-    // Check if user has a valid role
-    if (!user.role || !["USER", "ADMIN"].includes(user.role)) {
-      throw createHttpError(403, {
-        message: "Invalid or unauthorized user role",
-      });
-    }
-
     req.user = user as any;
     next();
   }
 );
-
-export const isUser = async(req: Request, res: Response, next: NextFunction) => {
-  const user = req.user;
-  if (!user || user.role !== "USER") {
-    next(createHttpError(403, "Only User can access this route"));
-  }
-  next();
-};
-
-export const isAdmin = async(req: Request, res: Response, next: NextFunction) => {
-  const user = req.user;
-  if (!user || user.role !== "ADMIN") {
-    next(createHttpError(403, "only Admin can access this route"));
-  }
-  next();
-};
