@@ -1,4 +1,5 @@
 import express, { type Express, type Request, type Response } from "express";
+import { server, app } from './app/socket/index'; // Adjusted import
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import http from "http";
@@ -27,8 +28,6 @@ declare global {
 
 const port = Number(process.env.PORT) ?? 5000;
 
-const app: Express = express();
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
@@ -43,26 +42,28 @@ app.use(cors({
 import swaggerDocument from "./app/swagger/swagger";
 
 const initApp = async (): Promise<void> => {
-  // init mongodb
+  // Initialize database
   await initDB();
 
-  // passport init
+  // Passport initialization
   initPassport();
 
-  // set base path to /api
+  // Set base path to /api
   app.use("/api", apiLimiter, routes);
 
   app.get("/", (req: Request, res: Response) => {
-    res.send({ status: "ok" });
+    res.send(`<h1>Chat app is Running</h1>`);
   });
 
   // Set up Swagger UI
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
- 
-  // error handler
+
+  // Error handler middleware
   app.use(errorHandler);
-  http.createServer(app).listen(port, () => {
-    console.log("Server is runnuing on port", port);
+
+  // Start server on the same port as HTTP server
+  server.listen(port, () => {
+    console.log("Server is running on port", port);
     console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
   });
 };

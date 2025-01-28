@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  height: 100vh; /* Full height of the viewport */
+  background-color: #f7f8fc; /* Light background */
+}
+
+.chatList {
+  width: 30%; /* Fixed width for the chat list */
+  background-color: #ffffff; /* White background */
+  border-right: 1px solid #ddd; /* Light border for separation */
+  overflow-y: auto; /* Scrollable content */
+}
+
+.chatBox {
+  width: 70%; /* Remaining space for the chat box */
+  background-color: #ffffff; /* White background */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  overflow: hidden; /* Hide overflow content */
+}

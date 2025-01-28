@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-// Define a type for the slice state
+// authReducer.ts (updated)
+
 interface AuthState {
   name: string;
   email: string;
@@ -10,9 +11,9 @@ interface AuthState {
   refreshToken: string;
   isAuthenticated: boolean;
   loading: boolean;
+  groups: string[];
 }
 
-// Define the initial state using that type
 const initialState: AuthState = {
   name: window.localStorage.getItem('name') || "",
   email: window.localStorage.getItem('email') || "",
@@ -21,6 +22,7 @@ const initialState: AuthState = {
   refreshToken: window.localStorage.getItem('refreshToken') || "",
   isAuthenticated: window.localStorage.getItem('isAuthenticated') === 'true' || false,
   loading: true,
+  groups: JSON.parse(window.localStorage.getItem('groups') || '[]'), // Retrieve groups from localStorage
 };
 
 export const authSlice = createSlice({
@@ -34,7 +36,6 @@ export const authSlice = createSlice({
       state,
       action: PayloadAction<{ accessToken: string; refreshToken: string }>
     ) => {
-      console.log("action.paload: ", action.payload)
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
       state.isAuthenticated = true;
@@ -46,13 +47,14 @@ export const authSlice = createSlice({
     },
     login: (
       state,
-      action: PayloadAction<{name: string, email: string, role: string, accessToken: string; refreshToken: string }>
+      action: PayloadAction<{ name: string; email: string; role: string; accessToken: string; refreshToken: string; groups: string[] }>
     ) => {
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.role = action.payload.role;
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
+      state.groups = action.payload.groups; // Store the groups
       state.isAuthenticated = true;
     },
     logout: (state) => {
@@ -61,11 +63,11 @@ export const authSlice = createSlice({
       state.role = "";
       state.accessToken = "";
       state.refreshToken = "";
+      state.groups = [];
       state.isAuthenticated = false;
     },
   },
 });
 
 export const { setLoading, setTokens, resetTokens, login, logout } = authSlice.actions;
-
 export default authSlice.reducer;

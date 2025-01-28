@@ -38,36 +38,41 @@ const SignupForm: React.FC = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
-    try {
-      const response = await registerUser(data).unwrap();
+  // SignupForm.tsx (updated)
 
-      dispatch(login({
-        name: response.data.name,
-        email: response.data.email,
-        role: response.data.role,
-        accessToken: response.data.accessToken,
-        refreshToken: response.data.refreshToken,
-      }));
+const onSubmit: SubmitHandler<FormData> = async (data) => {
+  try {
+    const response = await registerUser(data).unwrap();
 
-      window.localStorage.setItem('name', response.data.name);
-      window.localStorage.setItem('email', response.data.email);
-      window.localStorage.setItem('accessToken', response.data.accessToken);
-      window.localStorage.setItem('refreshToken', response.data.refreshToken);
-      window.localStorage.setItem('isAuthenticated', 'true');
+    dispatch(login({
+      name: response.data.name,
+      email: response.data.email,
+      role: response.data.role,
+      accessToken: response.data.accessToken,
+      refreshToken: response.data.refreshToken,
+      groups: response.data.groups, // Store groups on registration
+    }));
 
-      toast.success('User Registered successfully');
-      reset();
-      navigate('/');
-    } catch (err) {
-      if ((err as any)?.data?.err_code === 409) {
-        toast.error('User already exists');
-      }
-      if((err as any)?.data?.err_code === 500) {
-        toast.error('Something went wrong')
-      }
+    window.localStorage.setItem('name', response.data.name);
+    window.localStorage.setItem('email', response.data.email);
+    window.localStorage.setItem('accessToken', response.data.accessToken);
+    window.localStorage.setItem('refreshToken', response.data.refreshToken);
+    window.localStorage.setItem('isAuthenticated', 'true');
+    window.localStorage.setItem('groups', JSON.stringify(response.data.groups)); // Store groups in localStorage
+
+    toast.success('User Registered successfully');
+    reset();
+    navigate('/');
+  } catch (err) {
+    if ((err as any)?.data?.err_code === 409) {
+      toast.error('User already exists');
     }
-  };
+    if((err as any)?.data?.err_code === 500) {
+      toast.error('Something went wrong')
+    }
+  }
+};
+
 
   return (
     <div className={style.signupContainer}>

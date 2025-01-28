@@ -1,0 +1,187 @@
+/* src/components/chatList/index.module.css */
+:root {
+  --primary-orange: #fc8019;
+  --secondary-orange: #ff914d;
+  --gray: #f5f5f5;
+  --dark-gray: #333;
+  --white: #fff;
+  --black: #000;
+  --input-border: #ddd;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--gray);
+}
+
+.chatListContainer {
+  padding: 10px;
+}
+
+.chatItem {
+  display: flex;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.chatItem:hover {
+  background-color: var(--secondary-orange);
+}
+.selectedChat {
+  background-color: var(--secondary-orange);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.chatDetails {
+  flex-grow: 1;
+}
+
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--dark-gray);
+}
+
+.chatName {
+  font-weight: bold;
+}
+
+.chatTime {
+  color: var(--gray);
+}
+
+.lastMessage {
+  font-size: 13px;
+  color: var(--dark-gray);
+}
+
+.unreadMessage {
+  font-weight: bold;
+  color: var(--primary-orange);
+}
+
+.bottomLeftContainer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
+  border-top: 1px solid var(--input-border);
+}
+
+.profileSection {
+  display: flex;
+  align-items: center;
+}
+
+.profileAvatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.iconSection {
+  display: flex;
+  align-items: center;
+}
+
+.profileIcon,
+.logoutIcon {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--dark-gray);
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.profileIcon:hover,
+.logoutIcon:hover {
+  color: var(--primary-orange);
+}
+
+/* Skeleton Loader Styles */
+.chatItemSkeleton {
+  display: flex;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.skeletonAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  margin-right: 15px;
+}
+
+.skeletonDetails {
+  flex-grow: 1;
+}
+
+.skeletonHeader {
+  width: 100px;
+  height: 14px;
+  background-color: #e0e0e0;
+  margin-bottom: 8px;
+}
+
+.skeletonMessage {
+  width: 70%;
+  height: 12px;
+  background-color: #e0e0e0;
+}
+
+.createGroup {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.createGroup:hover {
+  background-color: #388e3c;
+}
+
+/* Logout button */
+.logoutBtn {
+  background-color: #f44336;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.logoutBtn:hover {
+  background-color: #d32f2f;
+}
+

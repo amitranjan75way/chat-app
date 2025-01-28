@@ -21,6 +21,7 @@ const Basic = () => {
   const styles = useStyle(theme);
   return (
     <Box sx={styles.root}>
+      <Header/>
       <Outlet />
     </Box>
   );

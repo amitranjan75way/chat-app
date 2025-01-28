@@ -31,12 +31,16 @@ const UserSchema = new mongoose.Schema<IUser>(
       required: true,
     },
     profilePic: {
-      type: String,
+      type: String, 
       default: ""
-    },
+    },  
     refreshToken: {
       type: String,
     },
+    groups: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Group'
+    }]
   },
   { timestamps: true }
 );

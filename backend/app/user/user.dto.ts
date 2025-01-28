@@ -1,4 +1,5 @@
 
+import mongoose from "mongoose";
 import { type BaseSchema } from "../common/dto/base.dto";
 
 export interface IUser extends BaseSchema {
@@ -7,6 +8,7 @@ export interface IUser extends BaseSchema {
         password: string;
         profilePic: string;
         refreshToken: string;
+        groups: mongoose.Types.ObjectId;
 }
 
 export interface Payload {

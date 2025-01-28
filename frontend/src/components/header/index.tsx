@@ -36,16 +36,9 @@ const Header = () => {
     <header className={style.header}>
       <div className={style.logo} onClick={() => navigate('/')}>
         <img src={logo} alt="FApp Logo" />
-        <h1>My App</h1>
+        <h1>Sout-Chat</h1>
       </div>
-      <nav className={style.nav}>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/menu">Menu</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-        </ul>
-      </nav>
+      
       <div className={style.actions}>
         {isAuthenticated ? (
           <>

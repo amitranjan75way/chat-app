@@ -37,39 +37,42 @@ const LoginForm: React.FC = () => {
 
   const [loginUser, { isLoading }] = useLoginUserMutation();
 
-  const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
-    try {
-      const result = await loginUser(data).unwrap();
-      toast.success('Login successful!');
-      dispatch(
-        login({
-          name: result.data.name,
-          email: result.data.email,
-          role: result.data.role,
-          accessToken: result.data.accessToken,
-          refreshToken: result.data.refreshToken,
-        })
-      );
-      window.localStorage.setItem('name', result.data.name);
-      window.localStorage.setItem('email', result.data.email);
-      window.localStorage.setItem('role', result.data.role);
-      window.localStorage.setItem('accessToken', result.data.accessToken);
-      window.localStorage.setItem('refreshToken', result.data.refreshToken);
-      window.localStorage.setItem('isAuthenticated', 'true');
-      navigate('/');
-    } catch (err) {
-    
-      const errorCode = (err as any)?.data?.error_code;
-      
-      if (errorCode === 404) {
-        toast.error('User not found.');
-      } else if (errorCode === 401) {
-        toast.error('Incorrect password.');
-      } else {
-        toast.error('Something went wrong. Please try again.');
-      }
+  // LoginForm.tsx (updated)
+
+const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
+  try {
+    const result = await loginUser(data).unwrap();
+    toast.success('Login successful!');
+    dispatch(
+      login({
+        name: result.data.name,
+        email: result.data.email,
+        role: result.data.role,
+        accessToken: result.data.accessToken,
+        refreshToken: result.data.refreshToken,
+        groups: result.data.groups,
+      })
+    );
+    window.localStorage.setItem('name', result.data.name);
+    window.localStorage.setItem('email', result.data.email);
+    window.localStorage.setItem('role', result.data.role);
+    window.localStorage.setItem('accessToken', result.data.accessToken);
+    window.localStorage.setItem('refreshToken', result.data.refreshToken);
+    window.localStorage.setItem('isAuthenticated', 'true');
+    window.localStorage.setItem('groups', JSON.stringify(result.data.groups)); // Store groups in localStorage
+    navigate('/');
+  } catch (err) {
+    const errorCode = (err as any)?.data?.error_code;
+    if (errorCode === 404) {
+      toast.error('User not found.');
+    } else if (errorCode === 401) {
+      toast.error('Incorrect password.');
+    } else {
+      toast.error('Something went wrong. Please try again.');
     }
-  };
+  }
+};
+
 
   return (
     <div className={style.loginContainer}>

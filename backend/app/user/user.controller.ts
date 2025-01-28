@@ -58,6 +58,8 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
     const response = {
       _id: user._id,
       name: user.name,
+      profilePic: user.profilePic,
+      groups: user.groups,
       email: user.email,
       refreshToken,
       accessToken
@@ -110,6 +112,8 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
     const response = {
       _id: user._id,
       name: user.name,
+      profilePic: user.profilePic,
+      groups: user.groups,
       email: user.email,
       refreshToken,
       accessToken
@@ -177,6 +181,8 @@ export const updateAccessToken = asyncHandler(async (req: Request, res: Response
     const response = {
       _id: user._id,
       name: user.name,
+      profilePic: user.profilePic,
+      groups: user.groups,
       email: user.email,
       refreshToken,
       accessToken

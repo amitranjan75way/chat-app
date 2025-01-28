@@ -6,6 +6,7 @@ import Login from './pages/login';
 import UpdatePassword from "./pages/updatePassword";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import { useAppSelector } from "./store/store";
+import CreateGroupPage from "./pages/createGroup";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/update-password" element={<UpdatePassword />} />
+        <Route path="/create-group" element={<CreateGroupPage/>} />
       </Route>
     </Routes>
   );
